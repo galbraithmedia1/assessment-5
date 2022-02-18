@@ -243,7 +243,33 @@ module.exports = {
         SELECT * FROM countries
 
         `).then(dbRes => res.status(200).send(dbRes[0]))
-        .catch(err => console.log('error on DB', err))
+        .catch(err => console.log('error on getCountry', err))
+    },
+
+    createCity: (req, res) => {
+
+        let{name, rating, countryId} = req.body
+
+        sequelize.query(`
+           INSERT INTO cities( name, rating, country_id)
+            VALUES ('${name}', ${rating}, ${countryId})
+        
+        `).then(dbRes => res.status(200).send(dbRes[0]))
+        .catch(err => console.log('error on createCity', err))
+
+    },
+
+    getCities: (req, res)=>{
+
+        sequelize.query(`
+
+        SELECT c.city_id, c.name AS city, c.rating , country.country_id, country.name AS country
+        FROM cities c
+        JOIN countries country ON c.country_id = country.country_id
+        
+        `).then(dbRes => res.status(200).send(dbRes[0]))
+        .catch(err => console.log('error on createCity', err))
+
     }
 
 
