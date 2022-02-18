@@ -33,7 +33,7 @@ module.exports = {
             rating INTEGER, 
             country_id INT NOT NULL REFERENCES countries(country_id)
 
-           )
+           );
 
             insert into countries (name)
             values ('Afghanistan'),
@@ -235,5 +235,20 @@ module.exports = {
             console.log('DB seeded!')
             res.sendStatus(200)
         }).catch(err => console.log('error seeding DB', err))
+    },
+
+    getCountries: (req,res) => {
+
+        sequelize.query(`
+        SELECT * FROM countries
+
+        `).then(dbRes => res.status(200).send(dbRes[0]))
+        .catch(err => console.log('error on DB', err))
     }
+
+
+
+
+
+
 }
