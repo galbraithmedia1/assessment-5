@@ -10,3 +10,15 @@ def sales_reports(log_file): #This line creates a function using def named sales
 
 
 sales_reports(log_file)#calls the function and passes in log_file
+
+
+def order(log_file):
+    
+    for line in log_file:
+        mellons = line.split()
+        if int(mellons[2]) > 10:
+            print(mellons)
+
+       
+
+order(log_file)
